@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cube-local
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cube-local
+  template:
+    metadata:
+      labels:
+        app: cube-local
+    spec:
+      containers:
+      - name: cube
+        image: cube-model:latest
+        env:
+        - name: DEPLOYMENT_TYPE
+          value: "local"
+        ports:
+        - containerPort: 8000

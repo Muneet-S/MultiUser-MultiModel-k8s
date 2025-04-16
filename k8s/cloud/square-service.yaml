@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: square-cloud-service
+  labels:
+    user-type: cloud
+    app: square
+spec:
+  selector:
+    app: square-cloud  # Must match deployment's pod labels
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000  # Must match containerPort in deployment

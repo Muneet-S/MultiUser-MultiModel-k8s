@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cube-local-service
+spec:
+  selector:
+    app: cube-local
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

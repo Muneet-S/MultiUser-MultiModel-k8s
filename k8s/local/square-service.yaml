@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: square-local-service
+  labels:
+    user-type: local
+    app: square
+spec:
+  selector:
+    app: square-local  # Must match deployment's pod labels
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

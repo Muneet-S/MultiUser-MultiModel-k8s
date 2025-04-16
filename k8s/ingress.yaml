@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: model-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /cloud/square(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: square-cloud-service
+            port:
+              number: 80
+      - path: /local/square(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: square-local-service
+            port:
+              number: 80
+      - path: /cloud/cube(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: cube-cloud-service
+            port:
+              number: 80
+      - path: /local/cube(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: cube-local-service
+            port:
+              number: 80

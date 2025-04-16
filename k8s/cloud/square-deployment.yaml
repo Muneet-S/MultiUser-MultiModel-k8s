@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: square-cloud
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: square-cloud
+  template:
+    metadata:
+      labels:
+        app: square-cloud
+    spec:
+      containers:
+      - name: square
+        image: square-model:latest
+        env:
+        - name: DEPLOYMENT_TYPE
+          value: "cloud"
+        ports:
+        - containerPort: 8000
