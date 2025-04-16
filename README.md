@@ -3,7 +3,6 @@
 This project demonstrates a multi-model Kubernetes deployment where different configurations can be applied based on the intended user type (e.g., cloud users vs. local machine users). It includes two simple models (square and cube) served via FastAPI and accessible through a Kubernetes Ingress.
 
 ## Project Structure
-
                                        ┌───────────────────────────────┐
                                        │       Kubernetes Cluster      │
                                        │───────────────────────────────│
@@ -23,16 +22,15 @@ This project demonstrates a multi-model Kubernetes deployment where different co
                                        └───────────────────────────────┘
                                           ▲
                                           │ Network Connectivity
-                                          │
-┌───────────────────┐      ┌───────────────────┐      ┌─────────────────────┐
-│ Cloud User 1      │──────▶│ Internet          │◀──────│ Local Machine User 1│
-│ (e.g., AWS EC2)   │      └───────────────────┘      └─────────────────────┘
-└───────────────────┘                                  ▲
-                                                       │ Network Connectivity (e.g., VPN, Port Forwarding)
-                                                       │
-                                       ┌─────────────────────┐
-                                       │ Local Machine User 2│
-                                       └─────────────────────┘
+                                          │┌───────────────────┐      ┌───────────────────┐      ┌─────────────────────┐
+                                           │ Cloud User 1      │──────▶│ Internet          │◀──────│ Local Machine User 1│
+                                           │ (e.g., AWS EC2)   │      └───────────────────┘      └─────────────────────┘
+                                           └───────────────────┘                                  ▲
+                                                                                                  │ Network Connectivity (e.g., VPN, Port Forwarding)
+                                                                                                  │
+                                                                                               ┌─────────────────────┐
+                                                                                               │ Local Machine User 2│
+                                                                                               └─────────────────────┘
 
 ## Overview
 
