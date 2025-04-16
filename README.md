@@ -4,27 +4,35 @@ This project demonstrates a multi-model Kubernetes deployment where different co
 
 ## Project Structure
 
-multi-model-k8s/
-├── k8s/
-│   ├── cloud/                      # Kubernetes configurations for cloud deployments
-│   │   ├── cube-deployment.yaml
-│   │   ├── cube-service.yaml
-│   │   ├── square-deployment.yaml
-│   │   └── square-service.yaml
-│   ├── local/                      # Kubernetes configurations for local deployments (can be customized)
-│   │   ├── cube-deployment.yaml
-│   │   ├── cube-service.yaml
-│   │   ├── square-deployment.yaml
-│   │   └── square-service.yaml
-│   └── ingress.yaml                # Ingress configuration for routing traffic
-└── models/
-├── cube/                       # Cube model service
-│   ├── app.py                  # FastAPI application for cube model
-│   └── Dockerfile              # Dockerfile for building the cube model image
-└── square/                     # Square model service
-├── app.py                  # FastAPI application for square model
-└── Dockerfile              # Dockerfile for building the square model image
-
+                                       ┌───────────────────────────────┐
+                                       │       Kubernetes Cluster      │
+                                       │───────────────────────────────│
+                                       │   Ingress Controller          │
+                                       │       (e.g., Nginx)           │
+                                       │     /square  → Square Service │
+                                       │     /cube    → Cube Service   │
+                                       │───────────────────────────────│
+                                       │   Square Model Deployment     │
+                                       │     - Pod 1                   │
+                                       │     - Pod 2                   │
+                                       │   Cube Model Deployment       │
+                                       │     - Pod 1                   │
+                                       │     - Pod 2                   │
+                                       │   Square Service (Load Balancer)│
+                                       │   Cube Service   (Load Balancer)│
+                                       └───────────────────────────────┘
+                                          ▲
+                                          │ Network Connectivity
+                                          │
+┌───────────────────┐      ┌───────────────────┐      ┌─────────────────────┐
+│ Cloud User 1      │──────▶│ Internet          │◀──────│ Local Machine User 1│
+│ (e.g., AWS EC2)   │      └───────────────────┘      └─────────────────────┘
+└───────────────────┘                                  ▲
+                                                       │ Network Connectivity (e.g., VPN, Port Forwarding)
+                                                       │
+                                       ┌─────────────────────┐
+                                       │ Local Machine User 2│
+                                       └─────────────────────┘
 
 ## Overview
 
